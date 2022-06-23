@@ -16,5 +16,5 @@ This is a project in which we implement a Social Networking Tool for University 
 
 
 ## List of Tasks For the Project
-- [ ] Make a Main Menu
-- [ ] Make a User Account Menu
+- [x] Make a Main Menu
+- [x] Make a User Account Menu
