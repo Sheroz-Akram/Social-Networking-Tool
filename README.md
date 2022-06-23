@@ -18,3 +18,8 @@ This is a project in which we implement a Social Networking Tool for University 
 ## List of Tasks For the Project
 - [x] Make a Main Menu
 - [x] Make a User Account Menu
+
+## Screenshots
+<p align="center">
+  <img width="460" height="300" src="https://github.com/akramshehroz0/Social-Networking-Tool/blob/main/Screenshots/Main%20Menu%20and%20User%20Menu.PNG">
+</p>
