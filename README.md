@@ -11,7 +11,7 @@ This is a project in which we implement a Social Networking Tool for University 
 | Name | Github Account | University Roll Number |
 |------|--------------|------------------------|
 | **Sheroz Akram** | akramshehroz0 | _L1F20BSSE0454_ |
-| **Sikander Ali** |  | _L1F20BSSE0452_ |
+| **Sikander Ali** | TT5H | _L1F20BSSE0452_ |
 | **Talha Hameed** |  | _L1F20BSSE0462_ |
 
 
