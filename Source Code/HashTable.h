@@ -2,6 +2,7 @@
 #include "Student.h"
 #include <sstream>
 #include <fstream>
+#include "MaxHeap.h"
 
 using namespace std;
 
@@ -85,19 +86,54 @@ public:
 		string Email;
 		string Password;
 		string Class;
+		int Date;
+		int Month;
 		int Year;
+		int Hour;
+		int Minute;
+		string Description;
+		int YearEvent;
 		string Temp;
 
 		while (getline(input,Name))
 		{
+			// Get the Student Info
 			getline(input, Email);
 			getline(input, Password);
 			input >> Class;
 			input >> Year;
 			getline(input, Temp);
+			Student(Name, Email, Password, Class, Year).Display();
+			cout << endl;
+			insert(Student(Name, Email, Password, Class, Year));
+			cout << endl;
+
+			input >> Temp;
+
+			// Get the Events from the Records
+			while (Temp != "...")
+			{
+				input >> Date;
+				input >> Month;
+				input >> YearEvent;
+				input >> Hour;
+				input >> Minute;
+				getline(input, Description , '"');
+				input >> Temp;
+				input >> Temp;
+
+				Event(Date, Month, Year, Hour, Minute, Description).Display();
+				cout << endl;
+				
+
+			}
+
+			getline(input, Temp);
+			cout << Temp << endl;
 			getline(input, Temp);
 
-			insert(Student(Name, Email, Password, Class, Year));
+			cout << endl << endl;
+
 		}
 
 	}

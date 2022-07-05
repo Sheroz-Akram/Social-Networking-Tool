@@ -11,7 +11,6 @@ class Event {
 	int Hour;
 	int Minute;
 	string Description;
-	string Location;
 
 public:
 
@@ -23,18 +22,16 @@ public:
 		this->Hour = 0;
 		this->Minute = 0;
 		this->Description = " ";
-		this->Location = " ";
 	}
 
 	// Parameterlized Contructor
-	Event(int Date, int Month, int Year, int Hour, int Minute, string Description, string Location) {
+	Event(int Date, int Month, int Year, int Hour, int Minute, string Description) {
 		this->Date = Date;
 		this->Month = Month;
 		this->Year = Year;
 		this->Hour = Hour;
 		this->Minute = Minute;
 		this->Description = Description;
-		this->Location = Location;
 	}
 
 	// getter and setter
@@ -63,20 +60,31 @@ public:
 		this->Description = Description;
 	}
 
-	void setLocation(string Location) {
-		this->Location = Location;
-	}
-
 	int getDate() {
 		return Date;
 	}
 
 	int getMonth() {
-		return Month
+		return Month;
+	}
+
+	int getHour() {
+		return Hour;
+	}
+
+	int getMinute() {
+		return Minute;
+	}
+
+	string getDescription() {
+		return Description;
 	}
 
 
-
-
+	void Display() {
+		cout << "Date : " << Date << "/" << Month << "/" << Year << endl;
+		cout << "Time : " << Hour << " : " << Minute << endl;
+		cout << "Description : " << Description << endl;
+	}
 
 };

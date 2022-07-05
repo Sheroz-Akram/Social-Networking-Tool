@@ -63,6 +63,7 @@ int main() {
 	// This will read data and store it into the Hash table according to the Hash Function
 	Students.Read();
 
+	system("pause");
 	// This Variable is Used to Store all the Option Selected
 	int Opt = 0;
 
@@ -102,7 +103,7 @@ int main() {
 
 
 	// At Last we Have to Store the Updated Data to the File "Data.txt"
-	Students.Write();
+	//Students.Write();
 
 	return 0;
 }
