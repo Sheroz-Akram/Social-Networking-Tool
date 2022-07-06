@@ -68,6 +68,10 @@ public:
 		return Month;
 	}
 
+	int getYear() {
+		return Year;
+	}
+
 	int getHour() {
 		return Hour;
 	}
@@ -80,6 +84,9 @@ public:
 		return Description;
 	}
 
+	void DisplaySmall() {
+		cout << '"' << Date << " " << Month << " " << Year << " " << Hour << " " << Minute << " " << Description << '"';
+	}
 
 	void Display() {
 		cout << "Date : " << Date << "/" << Month << "/" << Year << endl;

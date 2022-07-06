@@ -1,8 +1,6 @@
-#include "DoublyLinkedList.h"
 #include "Student.h"
 #include <sstream>
 #include <fstream>
-#include "MaxHeap.h"
 
 using namespace std;
 
@@ -91,6 +89,7 @@ public:
 		int Year;
 		int Hour;
 		int Minute;
+		string Timeline;
 		string Description;
 		int YearEvent;
 		string Temp;
@@ -103,14 +102,12 @@ public:
 			input >> Class;
 			input >> Year;
 			getline(input, Temp);
-			Student(Name, Email, Password, Class, Year).Display();
-			cout << endl;
-			insert(Student(Name, Email, Password, Class, Year));
-			cout << endl;
 
-			input >> Temp;
-
+			
+			
 			// Get the Events from the Records
+			input >> Temp;
+			MaxHeap * Events = new MaxHeap(10);
 			while (Temp != "...")
 			{
 				input >> Date;
@@ -121,17 +118,29 @@ public:
 				getline(input, Description , '"');
 				input >> Temp;
 				input >> Temp;
-
-				Event(Date, Month, Year, Hour, Minute, Description).Display();
-				cout << endl;
-				
-
+				Events->Insert(Event(Date, Month, Year, Hour, Minute, Description));
 			}
 
 			getline(input, Temp);
-			cout << Temp << endl;
-			getline(input, Temp);
 
+			// Get the all the Timeline post from the Records
+			input >> Temp;
+			Queue<string> QueueTimeline;
+
+			while (Temp != "...")
+			{
+				
+				getline(input, Timeline, '"');
+				input >> Temp;
+				input >> Temp;
+				QueueTimeline.Enqueue(Timeline);
+
+			}
+
+			Student(Name, Email, Password, Class, Year, &QueueTimeline, Events).Display();
+			insert(Student(Name, Email, Password, Class, Year, &QueueTimeline , Events));
+			getline(input, Temp);
+			getline(input, Temp);
 			cout << endl << endl;
 
 		}

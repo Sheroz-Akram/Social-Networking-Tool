@@ -1,6 +1,9 @@
 #include <iostream>
+#include "Queue.h"
 #include <string>
 #include <sstream>
+#include "MaxHeap.h"
+
 
 using namespace std;
 
@@ -9,6 +12,8 @@ class Student {
 	string Email;
 	string Password;
 	string Class;
+	Queue<string> * Timeline;
+	MaxHeap * Events;
 	int Year;
 
 public:
@@ -23,12 +28,14 @@ public:
 	}
 
 	// Parameterlized Constructor
-	Student(string Name , string Email , string Password , string Class , int Year) {
+	Student(string Name , string Email , string Password , string Class , int Year , Queue<string> * Timeline , MaxHeap * Events) {
 		this->Name = Name;
 		this->Email = Email;
 		this->Password = Password;
 		this->Class = Class;
 		this->Year = Year;
+		this->Timeline = Timeline;
+		this->Events = Events;
 	}
 
 	// Setter and Getters
@@ -53,6 +60,15 @@ public:
 		this->Year = Year;
 	}
 
+	void setTime(Queue<string> * Timeline) {
+		this->Timeline = Timeline;
+	}
+
+	void setEvents(MaxHeap * Events) {
+		this->Events = Events;
+	}
+
+
 	string getName() {
 		return Name;
 	}
@@ -73,13 +89,32 @@ public:
 		return Year;
 	}
 
+	Queue<string> * getTimeline() {
+		return Timeline;
+	}
+
+	MaxHeap * getEvents() {
+		return Events;
+	}
+
 	// Display Student Info
 	void Display() {
-		cout << "Name : " << Name << endl;
-		cout << "Email : " << Email << endl;
-		cout << "Password : " << Password << endl;
-		cout << "Class : " << Class << endl;
-		cout << "Year : " << Year << endl;
+		cout << Name << endl;
+		cout << Email << endl;
+		cout << Password << endl;
+		cout << Class << " " << Year << endl;
+
+		// Display All the Events
+		Events->Display();
+
+		// Display All the Time line Posts
+		while (!Timeline->isEmpty())
+		{
+			cout << '"'  << Timeline->Top() << '"' << " , ";
+			Timeline->Dequeue();
+		}
+
+		cout << "..." << endl;
 	}
 
 
