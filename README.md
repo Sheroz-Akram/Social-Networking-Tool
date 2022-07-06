@@ -22,6 +22,7 @@ This is a project in which we implement a Social Networking Tool for University 
 - [x] Store New Data to File.
 
 ## Screenshots
+<h1>User Menu</h1>
 <p align="center">
   <img src="https://github.com/akramshehroz0/Social-Networking-Tool/blob/main/Screenshots/Main%20Menu%20and%20User%20Menu.PNG">
 </p>
