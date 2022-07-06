@@ -231,7 +231,7 @@ public:
 						for (int i = 0; i <= EventSize; i++)
 						{
 							if (outputevents[i].getYear() != 0) {
-								output << '"' << " " << outputevents[i].getDate() << " " << outputevents[i].getMonth() << " " << outputevents[i].getYear() << " " << outputevents[i].getHour() << " " << outputevents[i].getMinute() << " " << outputevents[i].getDescription() << " " << '"';
+								output << '"' << " " << outputevents[i].getDate() << " " << outputevents[i].getMonth() << " " << outputevents[i].getYear() << " " << outputevents[i].getHour() << " " << outputevents[i].getMinute() << outputevents[i].getDescription() << '"';
 								output << " , ";
 							}
 						}

@@ -98,6 +98,7 @@ public:
 		cin.ignore();
 		cout << "Enter Description : ";
 		getline(cin, Description);
+		Description = " " + Description + " ";
 	}
 
 	void DisplaySmall() {
