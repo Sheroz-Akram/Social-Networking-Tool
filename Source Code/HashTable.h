@@ -224,17 +224,19 @@ public:
 					output << Data.getClass() << " " << Data.getYear() << endl;
 
 					// Output all the Events to the File
-					Event * outputevents = Head->getData().getEvents()->getEvents();
-					int EventSize = Head->getData().getEvents()->getTotal();
+					if (Head->getData().getEvents() != NULL) {
+						Event * outputevents = Head->getData().getEvents()->getEvents();
+						int EventSize = Head->getData().getEvents()->getTotal();
 
-					for (int i = 0; i <= EventSize; i++)
-					{
-						if (outputevents[i].getYear() != 0) {
-							output << '"' << " " << outputevents[i].getDate() << " " << outputevents[i].getMonth() << " " << outputevents[i].getYear() << " " << outputevents[i].getHour() << " " << outputevents[i].getMinute() << " " << outputevents[i].getDescription() << " " << '"';
-							output << " , ";
+						for (int i = 0; i <= EventSize; i++)
+						{
+							if (outputevents[i].getYear() != 0) {
+								output << '"' << " " << outputevents[i].getDate() << " " << outputevents[i].getMonth() << " " << outputevents[i].getYear() << " " << outputevents[i].getHour() << " " << outputevents[i].getMinute() << " " << outputevents[i].getDescription() << " " << '"';
+								output << " , ";
+							}
 						}
 					}
-					output << " ..." << endl;
+					output << "..." << endl;
 
 					string * Timeline = Head->getData().getTimeline();
 					int TimeNo = Head->getData().getTimeNumber();

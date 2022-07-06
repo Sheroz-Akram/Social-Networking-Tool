@@ -110,11 +110,11 @@ int main() {
 						cin.ignore();
 						cout << "Enter New Post : ";
 						getline(cin, Timeline);
+						Timeline = " " + Timeline + " ";
 						Students.AddPost(currentUserMail, Timeline);
 					}
 					else if (Opt == 2) {
 						system("CLS");
-						string Timeline;
 						cout << "******    NEW TIMELINE POST    ******" << endl;
 						Students.newEvent(currentUserMail);
 						cout << "New Event is Added to your Account!" << endl;
