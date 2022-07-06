@@ -18,6 +18,8 @@ This is a project in which we implement a Social Networking Tool for University 
 ## List of Tasks For the Project
 - [x] Make a Main Menu
 - [x] Make a User Account Menu
+- [x] Read Events and Timeline Post from the File
+- [x] Store New Data to File.
 
 ## Screenshots
 <p align="center">
