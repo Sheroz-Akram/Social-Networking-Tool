@@ -20,6 +20,14 @@ public:
 		Current = 0;
 	}
 
+	Event * getEvents() {
+		return arr;
+	}
+
+	int getSize() {
+		return Size;
+	}
+
 	int getTotal() {
 		return Current;
 	}
@@ -78,6 +86,6 @@ public:
 				cout << " , ";
 			}
 		}
-		cout << " ..." << endl;
+		cout << " ... " << endl;
 	}
 };

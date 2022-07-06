@@ -74,6 +74,60 @@ public:
 		return 0;
 	}
 
+	// Add a new Post to Time Line
+	void AddPost(string Email, string Post) {
+		int Index = hashFunction(Email);
+		Node<Student> * Head = Table[Index].getHead();
+		while (Head != NULL)
+		{
+			if (Head->getData().getEmail() == Email) {
+				Student newData = Head->getData();
+				newData.NewPost(Post);
+				cout << "New Post is Added to Time line !" << endl;
+				Head->setData(newData);
+				system("pause");
+				return;
+			}
+			Head = Head->getNext();
+		}
+		cout << "Account Does Not Found !" << endl;
+	}
+
+	Event getNextEvent(string Email) {
+		int Index = hashFunction(Email);
+		Node<Student> * Head = Table[Index].getHead();
+		while (Head != NULL)
+		{
+			if (Head->getData().getEmail() == Email) {
+				return Head->getData().getEvents()->Top();
+			}
+			Head = Head->getNext();
+		}
+	}
+
+	void newEvent(string Email) {
+		int Index = hashFunction(Email);
+		Node<Student> * Head = Table[Index].getHead();
+		while (Head != NULL)
+		{
+			if (Head->getData().getEmail() == Email) {
+				Head->getData().NewEvent();
+			}
+			Head = Head->getNext();
+		}
+	}
+
+	void RecentTimeline(string Email) {
+		int Index = hashFunction(Email);
+		Node<Student> * Head = Table[Index].getHead();
+		while (Head != NULL)
+		{
+			if (Head->getData().getEmail() == Email) {
+				Head->getData().DisplayTimeline();
+			}
+			Head = Head->getNext();
+		}
+	}
 
 	// Read all the Data from the File
 	void Read() {
@@ -123,9 +177,11 @@ public:
 
 			getline(input, Temp);
 
+
+			Student newStudent(Name, Email, Password, Class, Year, Events);
+
 			// Get the all the Timeline post from the Records
 			input >> Temp;
-			Queue<string> QueueTimeline;
 
 			while (Temp != "...")
 			{
@@ -133,12 +189,13 @@ public:
 				getline(input, Timeline, '"');
 				input >> Temp;
 				input >> Temp;
-				QueueTimeline.Enqueue(Timeline);
+				newStudent.InsertTimeLine(Timeline);
 
 			}
 
-			Student(Name, Email, Password, Class, Year, &QueueTimeline, Events).Display();
-			insert(Student(Name, Email, Password, Class, Year, &QueueTimeline , Events));
+			newStudent.Display();
+			insert(newStudent);
+
 			getline(input, Temp);
 			getline(input, Temp);
 			cout << endl << endl;
@@ -146,6 +203,8 @@ public:
 		}
 
 	}
+
+	
 
 	// Store the Data to a File
 	void Write() {
@@ -163,6 +222,31 @@ public:
 					output << Data.getEmail() << endl;
 					output << Data.getPassword() << endl;
 					output << Data.getClass() << " " << Data.getYear() << endl;
+
+					// Output all the Events to the File
+					Event * outputevents = Head->getData().getEvents()->getEvents();
+					int EventSize = Head->getData().getEvents()->getTotal();
+
+					for (int i = 0; i <= EventSize; i++)
+					{
+						if (outputevents[i].getYear() != 0) {
+							output << '"' << " " << outputevents[i].getDate() << " " << outputevents[i].getMonth() << " " << outputevents[i].getYear() << " " << outputevents[i].getHour() << " " << outputevents[i].getMinute() << " " << outputevents[i].getDescription() << " " << '"';
+							output << " , ";
+						}
+					}
+					output << " ..." << endl;
+
+					string * Timeline = Head->getData().getTimeline();
+					int TimeNo = Head->getData().getTimeNumber();
+
+					// Output All the Time Line Posts
+					for (int i = 0; i < TimeNo; i++)
+					{
+						output << '"' << Timeline[i] << '"' << " , ";
+					}
+
+					output << "..." << endl;
+					
 					output << endl;
 
 					Head = Head->getNext();

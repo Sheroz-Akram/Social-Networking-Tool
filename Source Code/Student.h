@@ -1,7 +1,7 @@
 #include <iostream>
-#include "Queue.h"
 #include <string>
 #include <sstream>
+#include "DoublyLinkedList.h"
 #include "MaxHeap.h"
 
 
@@ -12,9 +12,10 @@ class Student {
 	string Email;
 	string Password;
 	string Class;
-	Queue<string> * Timeline;
+	string * Timeline;
 	MaxHeap * Events;
 	int Year;
+	int TimeNo;
 
 public:
 
@@ -25,17 +26,21 @@ public:
 		this->Password = " ";
 		this->Class = " ";
 		this->Year = 0;
+		this->Timeline = new string[200];
+		TimeNo = 0;
 	}
 
 	// Parameterlized Constructor
-	Student(string Name , string Email , string Password , string Class , int Year , Queue<string> * Timeline , MaxHeap * Events) {
+	Student(string Name , string Email , string Password , string Class , int Year, MaxHeap * Events) {
 		this->Name = Name;
 		this->Email = Email;
 		this->Password = Password;
 		this->Class = Class;
 		this->Year = Year;
-		this->Timeline = Timeline;
 		this->Events = Events;
+		cout << "Hello " << endl;
+		this->Timeline = new string[200];
+		TimeNo = 0;
 	}
 
 	// Setter and Getters
@@ -60,14 +65,32 @@ public:
 		this->Year = Year;
 	}
 
-	void setTime(Queue<string> * Timeline) {
-		this->Timeline = Timeline;
-	}
 
 	void setEvents(MaxHeap * Events) {
 		this->Events = Events;
 	}
 
+	void InsertTimeLine(string Line) {
+		Timeline[TimeNo] = Line;
+		TimeNo++;
+	}
+
+	string * getTimeline() {
+		return  Timeline;
+	}
+
+	int getTimeNumber() {
+		return TimeNo;
+	}
+
+	void NewPost(string Post) {
+		for (int i = TimeNo; i >= 0; i--)
+		{
+			Timeline[i + 1] = Timeline[i];
+		}
+		Timeline[0] = Post;
+		TimeNo++;
+	}
 
 	string getName() {
 		return Name;
@@ -89,12 +112,22 @@ public:
 		return Year;
 	}
 
-	Queue<string> * getTimeline() {
-		return Timeline;
-	}
-
 	MaxHeap * getEvents() {
 		return Events;
+	}
+
+	void NewEvent() {
+		Event newEvent;
+		newEvent.Read();
+		Events->Insert(newEvent);
+	}
+
+	void DisplayTimeline() {
+		cout << "Time Line  : ";
+		for (int i = 0; i <= 2 && i <= TimeNo; i++)
+		{
+			cout << '"' << Timeline[i] << '"' << " , ";
+		}
 	}
 
 	// Display Student Info
@@ -108,14 +141,15 @@ public:
 		Events->Display();
 
 		// Display All the Time line Posts
-		while (!Timeline->isEmpty())
+		for (int i = 0; i < TimeNo; i++)
 		{
-			cout << '"'  << Timeline->Top() << '"' << " , ";
-			Timeline->Dequeue();
+			cout << '"'  << Timeline[i] << '"' << " , ";
 		}
 
 		cout << "..." << endl;
 	}
+
+
 
 
 	// We use to create a function to get Data from the user

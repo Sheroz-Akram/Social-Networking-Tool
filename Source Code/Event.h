@@ -84,8 +84,24 @@ public:
 		return Description;
 	}
 
+	void Read() {
+		cout << "Enter Date : ";
+		cin >> Date;
+		cout << "Enter Month : ";
+		cin >> Month;
+		cout << "Enter Year : ";
+		cin >> Year;
+		cout << "Enter Hour : ";
+		cin >> Hour;
+		cout << "Enter Minute : ";
+		cin >> Minute;
+		cin.ignore();
+		cout << "Enter Description : ";
+		getline(cin, Description);
+	}
+
 	void DisplaySmall() {
-		cout << '"' << Date << " " << Month << " " << Year << " " << Hour << " " << Minute << " " << Description << '"';
+		cout << '"' << " " << Date << " " << Month << " " << Year << " " << Hour << " " << Minute << " " << Description << " " << '"';
 	}
 
 	void Display() {

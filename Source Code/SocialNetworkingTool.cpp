@@ -30,7 +30,6 @@ int MainMenu() {
 This function will works same as Main Menu except it has more option than main menu
 */
 int UserMenu() {
-	system("CLS");
 	cout << "******    USER MENU    ******" << endl;
 	while (1)
 	{
@@ -51,6 +50,8 @@ int UserMenu() {
 
 int main() {
 
+
+
 	// This is a Hash table that will gonna store all the students in it
 	// Key used for the Hash Table is the Email Address of the Student
 	HashTable Students(100);
@@ -59,9 +60,15 @@ int main() {
 	string currentUserMail;
 	string currentUserPass;
 
+
 	// First of We Read All the Data from the File "Data.txt"
 	// This will read data and store it into the Hash table according to the Hash Function
 	Students.Read();
+
+	cout << Students.Display("Ali");
+
+	system("pause");
+
 
 	system("pause");
 	// This Variable is Used to Store all the Option Selected
@@ -82,7 +89,37 @@ int main() {
 			if (Students.Login(currentUserMail, currentUserPass)) {
 				while (Opt != 5)
 				{
+					system("CLS");
+
+
+					// Display the Next Event That Will Gonna Occur
+					cout << "Next Event : " << endl;
+					Students.getNextEvent(currentUserMail).Display();
+					cout << endl;
+
+					// Diplay the top 3 Recent Timeline posts
+					Students.RecentTimeline(currentUserMail);
+					cout << endl << endl;
+
 					Opt = UserMenu();
+
+					if (Opt == 1) {
+						system("CLS");
+						string Timeline;
+						cout << "******    NEW TIMELINE POST    ******" << endl;
+						cin.ignore();
+						cout << "Enter New Post : ";
+						getline(cin, Timeline);
+						Students.AddPost(currentUserMail, Timeline);
+					}
+					else if (Opt == 2) {
+						system("CLS");
+						string Timeline;
+						cout << "******    NEW TIMELINE POST    ******" << endl;
+						Students.newEvent(currentUserMail);
+						cout << "New Event is Added to your Account!" << endl;
+						system("pause");
+					}
 				}
 			}
 			else {
@@ -103,7 +140,7 @@ int main() {
 
 
 	// At Last we Have to Store the Updated Data to the File "Data.txt"
-	//Students.Write();
+	Students.Write();
 
 	return 0;
 }
