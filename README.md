@@ -28,7 +28,7 @@ This is a project in which we implement a Social Networking Tool for University 
 </p>
 <h3>User Menu</h3>
 <p align="center">
-  <img src="https://github.com/akramshehroz0/Social-Networking-Tool/blob/main/Screenshots/Main%20Menu%20and%20User%20Menu.PNG">
+  <img src="https://github.com/akramshehroz0/Social-Networking-Tool/blob/main/Screenshots/UserMenu.PNG">
 </p>
 <h3>New Account</h3>
 <p align="center">
