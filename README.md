@@ -30,3 +30,11 @@ This is a project in which we implement a Social Networking Tool for University 
 <p align="center">
   <img src="https://github.com/akramshehroz0/Social-Networking-Tool/blob/main/Screenshots/Main%20Menu%20and%20User%20Menu.PNG">
 </p>
+<h3>New Account</h3>
+<p align="center">
+  <img src="https://github.com/akramshehroz0/Social-Networking-Tool/blob/main/Screenshots/NewAccount.png">
+</p>
+<h3>Login</h3>
+<p align="center">
+  <img src="https://github.com/akramshehroz0/Social-Networking-Tool/blob/main/Screenshots/Login.PNG">
+</p>
