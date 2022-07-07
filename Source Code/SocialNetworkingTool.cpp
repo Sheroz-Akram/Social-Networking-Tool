@@ -72,7 +72,7 @@ int main() {
 
 		if (Opt == 1) {
 			system("CLS");
-			cout << "******    NEW ACCOUNT    ******" << endl;
+			cout << "******    ACCOUNT LOGIN    ******" << endl;
 			cin.ignore();
 			cout << "Enter Email : ";
 			getline(cin, currentUserMail);

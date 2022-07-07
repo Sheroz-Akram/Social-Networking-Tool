@@ -122,7 +122,6 @@ public:
 		Event newEvent;
 		newEvent.Read();
 		Events->Insert(newEvent);
-		Events->Display();
 	}
 
 	void DisplayTimeline() {

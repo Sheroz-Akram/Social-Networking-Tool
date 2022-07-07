@@ -275,8 +275,8 @@ public:
 				getline(input, Description , '"');
 				input >> Temp;
 				input >> Temp;
-				if (isHigherPriorityThan(Event(currentDate , currentMonth , currentYear , 24 , 0 , "NULL" ) , Event(Date, Month, Year, Hour, Minute, Description))) {
-					Events->Insert(Event(Date, Month, Year, Hour, Minute, Description));
+				if (isHigherPriorityThan(Event(currentDate, currentMonth, currentYear, 24, 0, "NULL"), Event(Date, Month, YearEvent, Hour, Minute, Description))) {
+					Events->Insert(Event(Date, Month, YearEvent, Hour, Minute, Description));
 				}
 			}
 
