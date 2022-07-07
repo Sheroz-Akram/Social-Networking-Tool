@@ -1,38 +1,34 @@
-// AVL tree implementation in C++
-#include "Event.h"
-
+#include <sstream>
+#include <fstream>
 #include <iostream>
+#include <string>
+
+
 using namespace std;
 
-template <typename T>
 class NodeAVL {
-	T Key;
+	string Data;
+	NodeAVL * Left;
+	NodeAVL * Right;
 	int Height;
-	NodeAVL<T> * Left;
-	NodeAVL<T> * Right;
 
 public:
-
-	// Contructor
-	NodeAVL(T Key) {
-		this->Key = Key;
+	NodeAVL(string Data) {
+		this->Data = Data;
 		this->Left = NULL;
 		this->Right = NULL;
 		this->Height = 1;
 	}
 
-
-	// Setter and getter
-
-	void setKey(T Key) {
-		this->Key = Key;
+	void setData(string Data) {
+		this->Data = Data;
 	}
 
-	void setLeft(NodeAVL<T> * Left) {
+	void setLeft(NodeAVL * Left) {
 		this->Left = Left;
 	}
 
-	void setRight(NodeAVL<T> * Right) {
+	void setRight(NodeAVL * Right) {
 		this->Right = Right;
 	}
 
@@ -40,109 +36,106 @@ public:
 		this->Height = Height;
 	}
 
-	T getKey() {
-		return Key;
+	string getData() {
+		return Data;
 	}
 
-	NodeAVL<T> * getLeft() {
+	NodeAVL * getLeft() {
 		return Left;
 	}
 
-	NodeAVL<T> * getRight() {
+	NodeAVL * getRight() {
 		return Right;
 	}
 
 	int getHeight() {
 		return Height;
 	}
-
 };
 
-int max(int a, int b);
-
 // Calculate height
-int height(NodeAVL<Event> * node) {
-	if (node == NULL)
+int height(NodeAVL * Node) {
+	if (Node == NULL) {
 		return 0;
-	return node->getHeight();
+	}
+	return Node->getHeight();
 }
 
+
+// Need To Be Done
 int max(int a, int b) {
 	return (a > b) ? a : b;
 }
 
 // New node creation
-NodeAVL<Event> * newNode(Event key) {
-	NodeAVL<Event> * node = new NodeAVL<Event>(key);
-	return (node);
+NodeAVL * newNode(string Data) {
+	NodeAVL * node = new NodeAVL(Data);
+	return node;
 }
 
 // Rotate right
-NodeAVL<Event> * rightRotate(NodeAVL<Event> * y) {
-	NodeAVL<Event> * x = y->getLeft();
-	NodeAVL<Event> * T2 = x->getRight();
+NodeAVL * rightRotate(NodeAVL * y) {
+	NodeAVL * x = y->getLeft();
+	NodeAVL * T2 = x->getRight();
 	x->setRight(y);
 	y->setLeft(T2);
 	y->setHeight(max(height(y->getLeft()), height(y->getRight())) + 1);
-	x->height = max(height(x->left), height(x->right)) + 1;
+	x->setHeight(max(height(x->getLeft()), height(x->getRight())) + 1);
 	return x;
 }
 
 // Rotate left
-Node *leftRotate(Node *x) {
-	Node *y = x->right;
-	Node *T2 = y->left;
-	y->left = x;
-	x->right = T2;
-	x->height = max(height(x->left),
-		height(x->right)) +
-		1;
-	y->height = max(height(y->left),
-		height(y->right)) +
-		1;
+NodeAVL * leftRotate(NodeAVL * x) {
+	NodeAVL * y = x->getRight();
+	NodeAVL * T2 = y->getLeft();
+	y->setLeft(x);
+	x->setRight(T2);
+
+	x->setHeight(max(height(x->getLeft()), height(x->getRight())) + 1);
+	y->setHeight(max(height(y->getLeft()), height(y->getRight())) + 1);
 	return y;
 }
 
 // Get the balance factor of each node
-int getBalanceFactor(Node *N) {
+int getBalanceFactor(NodeAVL * N) {
 	if (N == NULL)
 		return 0;
-	return height(N->left) -
-		height(N->right);
+	return height(N->getLeft()) - height(N->getRight());
 }
 
 // Insert a node
-Node* insertNode(Node *node, int key) {
+NodeAVL * insertNode(NodeAVL * node, string key) {
 	// Find the correct postion and insert the node
 	if (node == NULL)
 		return (newNode(key));
-	if (key < node->key)
-		node->left = insertNode(node->left, key);
-	else if (key > node->key)
-		node->right = insertNode(node->right, key);
+
+	// Means Key is Smaller than node->key
+	if (key.compare(node->getData()) < 0)
+		node->setLeft(insertNode(node->getLeft(), key));
+	else if (key.compare(node->getData()) > 0)
+		node->setRight(insertNode(node->getRight(), key));
 	else
 		return node;
 
 	// Update the balance factor of each node and
 	// balance the tree
-	node->height = 1 + max(height(node->left),
-		height(node->right));
+	node->setHeight(1 + max(height(node->getLeft()), height(node->getRight())));
 	int balanceFactor = getBalanceFactor(node);
 	if (balanceFactor > 1) {
-		if (key < node->left->key) {
+		if (key.compare(node->getLeft()->getData()) < 0) {
 			return rightRotate(node);
 		}
-		else if (key > node->left->key) {
-			node->left = leftRotate(node->left);
+		else if (key.compare(node->getLeft()->getData()) > 0) {
+			node->setLeft(leftRotate(node->getLeft()));
 			return rightRotate(node);
 		}
 	}
 	if (balanceFactor < -1) {
-		if (key > node->right->key) {
+		if (key.compare(node->getRight()->getData()) > 0) {
 			return leftRotate(node);
 		}
-		else if (key < node->right->key) {
-			node->right = rightRotate(node->right);
+		else if (key.compare(node->getRight()->getData()) < 0) {
+			node->setRight(rightRotate(node->getRight()));
 			return leftRotate(node);
 		}
 	}
@@ -150,26 +143,28 @@ Node* insertNode(Node *node, int key) {
 }
 
 // Node with minimum value
-Node *nodeWithMimumValue(Node *node) {
-	Node *current = node;
-	while (current->left != NULL)
-		current = current->left;
+NodeAVL * nodeWithMimumValue(NodeAVL * node) {
+	NodeAVL * current = node;
+	while (current->getLeft() != NULL)
+		current = current->getLeft();
 	return current;
 }
 
 // Delete a node
-Node *deleteNode(Node *root, int key) {
+NodeAVL * deleteNode(NodeAVL * root, string key) {
+	
+	cout << root->getData() << " " << key << endl;
 	// Find the node and delete it
 	if (root == NULL)
+		cout << "Freind Not Found !" << endl;
 		return root;
-	if (key < root->key)
-		root->left = deleteNode(root->left, key);
-	else if (key > root->key)
-		root->right = deleteNode(root->right, key);
+	if (key.compare(root->getData()) < 0)
+		root->setLeft(deleteNode(root->getLeft(), key));
+	else if (key.compare(root->getData()) > 0)
+		root->setRight(deleteNode(root->getRight(), key));
 	else {
-		if ((root->left == NULL) ||
-			(root->right == NULL)) {
-			Node *temp = root->left ? root->left : root->right;
+		if ((root->getLeft() == NULL) || (root->getRight() == NULL)) {
+			NodeAVL * temp = root->getLeft() ? root->getLeft() : root->getRight();
 			if (temp == NULL) {
 				temp = root;
 				root = NULL;
@@ -179,36 +174,35 @@ Node *deleteNode(Node *root, int key) {
 			free(temp);
 		}
 		else {
-			Node *temp = nodeWithMimumValue(root->right);
-			root->key = temp->key;
-			root->right = deleteNode(root->right,
-				temp->key);
+			NodeAVL * temp = nodeWithMimumValue(root->getRight());
+			root->setData(temp->getData());
+			root->setRight(deleteNode(root->getRight(), temp->getData()));
 		}
 	}
 
 	if (root == NULL)
+		cout << "Freind Not Found !" << endl;
 		return root;
 
 	// Update the balance factor of each node and
 	// balance the tree
-	root->height = 1 + max(height(root->left),
-		height(root->right));
+	root->setHeight(1 + max(height(root->getLeft()), height(root->getRight())));
 	int balanceFactor = getBalanceFactor(root);
 	if (balanceFactor > 1) {
-		if (getBalanceFactor(root->left) >= 0) {
+		if (getBalanceFactor(root->getLeft()) >= 0) {
 			return rightRotate(root);
 		}
 		else {
-			root->left = leftRotate(root->left);
+			root->setLeft(leftRotate(root->getLeft()));
 			return rightRotate(root);
 		}
 	}
 	if (balanceFactor < -1) {
-		if (getBalanceFactor(root->right) <= 0) {
+		if (getBalanceFactor(root->getRight()) <= 0) {
 			return leftRotate(root);
 		}
 		else {
-			root->right = rightRotate(root->right);
+			root->setRight(rightRotate(root->getRight()));
 			return leftRotate(root);
 		}
 	}
@@ -216,10 +210,54 @@ Node *deleteNode(Node *root, int key) {
 }
 
 // Print the tree
-void printTree(Node *root) {
+void printTree(NodeAVL *root) {
+	ofstream output;
+	output.open("Data.txt", ios::app);
 	if (root != nullptr) {
-		printTree(root->left);
-		cout << root->key << " , ";
-		printTree(root->right);
+		printTree(root->getLeft());
+		output << root->getData() << " , ";
+		printTree(root->getRight());
 	}
 }
+
+int i = 1;
+// Print All the tree
+void printTreeAll(NodeAVL *root) {
+	if (root != nullptr) {
+		printTreeAll(root->getLeft());
+		cout << i << ". " << root->getData() << endl;
+		i++;
+		printTreeAll(root->getRight());
+	}
+}
+
+class AVL {
+	NodeAVL * Root;
+
+public:
+
+	AVL() {
+		this->Root = NULL;
+	}
+
+	NodeAVL * getRoot() {
+		return Root;
+	}
+
+	void Insert(string Data) {
+		Root = insertNode(Root, Data);
+	}
+
+	void Delete(string Data) {
+		Root = deleteNode(Root, Data);
+	}
+
+	void Display() {
+		printTree(Root);
+	}
+
+	void DisplayAll() {
+		i = 1;
+		printTreeAll(Root);
+	}
+};

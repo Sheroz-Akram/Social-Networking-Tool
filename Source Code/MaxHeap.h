@@ -60,6 +60,9 @@ public:
 	}
 
 	Event Top() {
+		if (Current == 0) {
+			return Event(0, 0, 0, 0, 0, " NULL ");
+		}
 		return arr[0];
 	}
 

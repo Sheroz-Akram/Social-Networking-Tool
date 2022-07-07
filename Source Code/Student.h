@@ -3,6 +3,7 @@
 #include <sstream>
 #include "DoublyLinkedList.h"
 #include "MaxHeap.h"
+#include "AVL.h"
 
 
 using namespace std;
@@ -16,6 +17,7 @@ class Student {
 	MaxHeap * Events;
 	int Year;
 	int TimeNo;
+	AVL freinds;
 
 public:
 
@@ -120,6 +122,7 @@ public:
 		Event newEvent;
 		newEvent.Read();
 		Events->Insert(newEvent);
+		Events->Display();
 	}
 
 	void DisplayTimeline() {
@@ -145,12 +148,27 @@ public:
 		{
 			cout << '"'  << Timeline[i] << '"' << " , ";
 		}
-
+		cout << "..." << endl;
+		freinds.DisplayAll();
 		cout << "..." << endl;
 	}
 
+	void DisplayFreinds() {
+		freinds.DisplayAll();
+	}
 
 
+	void AddFreind(string Email) {
+		freinds.Insert(Email);
+	}
+
+	void RemoveFreind(string Freind) {
+		freinds.Delete(Freind);
+	}
+
+	void Output() {
+		freinds.Display();
+	}
 
 	// We use to create a function to get Data from the user
 	void NewStudent() {
@@ -164,7 +182,7 @@ public:
 		cin >> Class;
 		cout << "Enter Year : ";
 		cin >> Year;
-
+		Events = new MaxHeap(100);
 	}
 
 

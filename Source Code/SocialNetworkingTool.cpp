@@ -50,8 +50,6 @@ int UserMenu() {
 
 int main() {
 
-
-
 	// This is a Hash table that will gonna store all the students in it
 	// Key used for the Hash Table is the Email Address of the Student
 	HashTable Students(100);
@@ -65,12 +63,6 @@ int main() {
 	// This will read data and store it into the Hash table according to the Hash Function
 	Students.Read();
 
-	cout << Students.Display("Ali");
-
-	system("pause");
-
-
-	system("pause");
 	// This Variable is Used to Store all the Option Selected
 	int Opt = 0;
 
@@ -94,7 +86,7 @@ int main() {
 
 					// Display the Next Event That Will Gonna Occur
 					cout << "Next Event : " << endl;
-					Students.getNextEvent(currentUserMail).Display();
+					Students.getNextEvent(currentUserMail);
 					cout << endl;
 
 					// Diplay the top 3 Recent Timeline posts
@@ -115,9 +107,39 @@ int main() {
 					}
 					else if (Opt == 2) {
 						system("CLS");
-						cout << "******    NEW TIMELINE POST    ******" << endl;
+						cout << "******    NEW EVENT    ******" << endl;
 						Students.newEvent(currentUserMail);
 						cout << "New Event is Added to your Account!" << endl;
+						system("pause");
+					}
+					else if (Opt == 3) {
+						system("CLS");
+						cout << "******    LIST OF FREINDS    ******" << endl;
+						Students.DisplayFreinds(currentUserMail);
+						system("pause");
+					}
+					else if(Opt == 4) {
+						system("CLS");
+						cout << "******    ADD or REMOVE Freinds    ******" << endl;
+						int opt_m;
+						string F_Email;
+						cout << "1. Add" << endl;
+						cout << "2. Remove" << endl;
+						cout << "Select Option : ";
+						cin >> opt_m;
+						if (opt_m == 1) {
+							cout << "Enter Email of Freind : ";
+							cin >> F_Email;
+							Students.AddNewFriend(currentUserMail, F_Email);
+						}
+						else if(opt_m == 2) {
+							cout << "Enter Email of Freind : ";
+							cin >> F_Email;
+							Students.RemoveFreind(currentUserMail, F_Email);
+						}
+						else {
+							cout << "Invalid Option !" << endl;
+						}
 						system("pause");
 					}
 				}

@@ -1,6 +1,8 @@
 #include "Student.h"
 #include <sstream>
 #include <fstream>
+#include <ctime>
+#pragma warning(disable : 4996)
 
 using namespace std;
 
@@ -93,14 +95,21 @@ public:
 		cout << "Account Does Not Found !" << endl;
 	}
 
-	Event getNextEvent(string Email) {
+	void getNextEvent(string Email) {
 		int Index = hashFunction(Email);
 		Node<Student> * Head = Table[Index].getHead();
 		while (Head != NULL)
 		{
 			if (Head->getData().getEmail() == Email) {
-				return Head->getData().getEvents()->Top();
+				if (Head->getData().getEvents() == NULL) {
+					Event(0, 0, 0, 0, 0, "NULL").Display();
+				}
+				else {
+					Head->getData().getEvents()->Top().Display();
+				}
+			
 			}
+	
 			Head = Head->getNext();
 		}
 	}
@@ -129,6 +138,89 @@ public:
 		}
 	}
 
+	void DisplayFreinds(string Email) {
+		int Index = hashFunction(Email);
+		Node<Student> * Head = Table[Index].getHead();
+		while (Head != NULL)
+		{
+			if (Head->getData().getEmail() == Email) {
+				Head->getData().DisplayFreinds();
+			}
+			Head = Head->getNext();
+		}
+	}
+
+	int Search(string Email) {
+		int Index = hashFunction(Email);
+		Node<Student> * Head = Table[Index].getHead();
+		while (Head != NULL)
+		{
+			if (Head->getData().getEmail() == Email) {
+				return 1;
+
+			}
+			Head = Head->getNext();
+		}
+		return 0;
+	}
+
+	void AddNewFriend(string Email , string F_Email) {
+		int Index = hashFunction(Email);
+		Node<Student> * Head = Table[Index].getHead();
+		while (Head != NULL)
+		{
+			if (Head->getData().getEmail() == Email) {
+				
+				if (Search(F_Email) == 1) {
+					Student newData = Head->getData();
+					newData.AddFreind(F_Email);
+					cout << "New Freind is Added to your Account !" << endl;
+					Head->setData(newData);
+				}
+				else {
+					cout << "Freind Email Account is Not Found !" << endl;
+				}
+
+			}
+			Head = Head->getNext();
+		}
+	}
+
+	void RemoveFreind(string Email , string F_Email) {
+		int Index = hashFunction(Email);
+		Node<Student> * Head = Table[Index].getHead();
+		while (Head != NULL)
+		{
+			if (Head->getData().getEmail() == Email) {
+				Student newData = Head->getData();
+				newData.RemoveFreind(F_Email);
+				Head->setData(newData);
+			}
+			Head = Head->getNext();
+		}
+	}
+
+	int isHigherPriorityThan(Event a, Event b) {
+		if (a.getYear() < b.getYear()) {
+			return 1;
+		}
+		else if ((a.getMonth() < b.getMonth()) && (a.getYear() == b.getYear())) {
+			return 1;
+		}
+		else if ((a.getDate() < b.getDate()) && (a.getMonth() == b.getMonth()) && (a.getYear() == b.getYear())) {
+			return 1;
+		}
+		else if ((a.getHour() < b.getHour()) && (a.getDate() == b.getDate()) && (a.getMonth() == b.getMonth()) && (a.getYear() == b.getYear())) {
+			return 1;
+		}
+		else if ((a.getMinute() < b.getMinute()) && (a.getHour() == b.getHour()) && (a.getDate() == b.getDate()) && (a.getMonth() == b.getMonth()) && (a.getYear() == b.getYear())) {
+			return 1;
+		}
+		else {
+			return 0;
+		}
+	}
+
 	// Read all the Data from the File
 	void Read() {
 		ifstream input;
@@ -147,6 +239,17 @@ public:
 		string Description;
 		int YearEvent;
 		string Temp;
+
+		// Get the Current Date and Time
+		time_t now = time(0);
+		tm * ltm = localtime(&now);
+
+		// This will get the Current Date
+		int currentDate = ltm->tm_mday;
+		int currentMonth = ltm->tm_mon + 1;
+		int currentYear = ltm->tm_year + 1900;
+
+
 
 		while (getline(input,Name))
 		{
@@ -172,7 +275,9 @@ public:
 				getline(input, Description , '"');
 				input >> Temp;
 				input >> Temp;
-				Events->Insert(Event(Date, Month, Year, Hour, Minute, Description));
+				if (isHigherPriorityThan(Event(currentDate , currentMonth , currentYear , 24 , 0 , "NULL" ) , Event(Date, Month, Year, Hour, Minute, Description))) {
+					Events->Insert(Event(Date, Month, Year, Hour, Minute, Description));
+				}
 			}
 
 			getline(input, Temp);
@@ -193,10 +298,24 @@ public:
 
 			}
 
-			newStudent.Display();
-			insert(newStudent);
+			
 
 			getline(input, Temp);
+
+
+			string FreindEmail;
+			input >> FreindEmail;
+
+			while (FreindEmail != "...")
+			{
+				newStudent.AddFreind(FreindEmail);
+				input >> Temp;
+				input >> FreindEmail;
+			}
+
+			insert(newStudent);
+
+			getline(input, Temp); 
 			getline(input, Temp);
 			cout << endl << endl;
 
@@ -248,7 +367,15 @@ public:
 					}
 
 					output << "..." << endl;
-					
+
+					output.close();
+
+					Head->getData().Output();
+
+					output.open("Data.txt", ios::app);
+
+					output << "..." << endl;
+
 					output << endl;
 
 					Head = Head->getNext();
