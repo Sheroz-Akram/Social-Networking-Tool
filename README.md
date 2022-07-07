@@ -21,6 +21,12 @@ This is a project in which we implement a Social Networking Tool for University 
 - [x] Read Events and Timeline Post from the File
 - [x] Store New Data to File.
 
+## Diagram
+<h3>Class Diagram</h3>
+<p align="center">
+  <img src="https://github.com/akramshehroz0/Social-Networking-Tool/blob/main/Documents/Diagram/ClassDiagram.PNG">
+</p>
+
 ## Screenshots
 <h3>Main Menu</h3>
 <p align="center">
