@@ -1,8 +1,3 @@
-/*
-Github: https://github.com/akramshehroz0/Social-Networking-Tool
-*/
-
-
 #include <iostream>
 #include "HashTable.h"
 
