@@ -12,7 +12,7 @@ This is a project in which we implement a Social Networking Tool for University 
 |------|--------------|------------------------|
 | **Sheroz Akram** | akramshehroz0 | _L1F20BSSE0454_ |
 | **Sikander Ali** | L1F20BSSE0452 | _L1F20BSSE0452_ |
-| **Talha Hameed** |  TT5H  | _L1F20BSSE0462_ |
+| **Talha** |  TT5H  | _L1F20BSSE0462_ |
 
 
 ## List of Tasks For the Project
