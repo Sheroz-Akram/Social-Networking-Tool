@@ -1,4 +1,4 @@
-### This Project is Developed For University of Centeral Punjab
+### This Project is Developed For University of Centeral Punjab, Lahore
 <p align="center">
   <img width="460" height="300" src="https://portal.ucp.edu.pk/9c8454cc13ef66223bdda8887c9d2c67.svg">
 </p>
