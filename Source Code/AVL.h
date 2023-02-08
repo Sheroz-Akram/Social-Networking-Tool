@@ -6,7 +6,7 @@
 
 using namespace std;
 
-class NodeAVL {
+class NodeAVLL {
 	string Data;
 	NodeAVL * Left;
 	NodeAVL * Right;
