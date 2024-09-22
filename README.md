@@ -1,6 +1,6 @@
 ### This Project is Developed For University of Centeral Punjab, Lahore
 <p align="center">
-  <img width="460" height="300" src="./Screenshots/UCP-LOGO.PNG">
+  <img src="./Screenshots/UCP-LOGO.png">
 </p>
 
 # Social-Networking-Tool
