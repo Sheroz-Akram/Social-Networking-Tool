@@ -1,6 +1,6 @@
 ### This Project is Developed For University of Centeral Punjab, Lahore
 <p align="center">
-  <img width="460" height="300" src="https://portal.ucp.edu.pk/9c8454cc13ef66223bdda8887c9d2c67.svg">
+  <img width="460" height="300" src="./Screenshots/UCP-LOGO.PNG">
 </p>
 
 # Social-Networking-Tool
@@ -10,7 +10,7 @@ This is a project in which we implement a Social Networking Tool for University 
 ## Contributers
 | Name | Github Account | University Roll Number |
 |------|--------------|------------------------|
-| **Sheroz Akram** | akramshehroz0 | _L1F20BSSE0454_ |
+| **Sheroz Akram** | Sheroz-Akram | _L1F20BSSE0454_ |
 | **Sikander Ali** | L1F20BSSE0452 | _L1F20BSSE0452_ |
 | **Talha** |  TT5H  | _L1F20BSSE0462_ |
 
